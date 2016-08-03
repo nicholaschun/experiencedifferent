@@ -10,7 +10,6 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-require_once dirname(__DIR__).'/vendor/autoload.php';
 
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
