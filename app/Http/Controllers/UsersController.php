@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\User;
+
+use App\Http\Requests\CreateUsersRequest;
+use Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
 
 class UsersController extends Controller
 {
@@ -16,7 +21,18 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::all();
+
+        foreach($users as $user):
+            if($user->status){
+            $user->status = "Active";
+            }
+            else{
+                $user->status = "<span class='disabled'>Inactive</span>";
+            }
+
+            endforeach;
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -35,9 +51,16 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUsersRequest $request)
     {
-        //
+        $confirmation_code = str_random(30);
+        $new_user = Request::all();
+        $new_user['created_at'] = Carbon::now();
+        $new_user['password'] = bcrypt($new_user['password']);
+        $new_user['confirmation_code'] = $confirmation_code;
+
+        User::create($new_user);
+        return \Redirect::route('admin.users.index')->with('message','User Created');
     }
 
     /**
@@ -82,6 +105,20 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::findOrFail($id)->delete();
+        return redirect('admin.users.index')->with('message','User Delete');
+
+    }
+
+    public function addUser(CreateUsersRequest $request)
+    {
+        $confirmation_code = str_random(30);
+        $new_user = Request::all();
+        $new_user['created_at'] = Carbon::now();
+        $new_user['password'] = bcrypt($new_user['password']);
+        $new_user['confirmatin_code'] = $confirmation_code;
+
+        User::create($new_user);
+        return \Redirect::route('admin.users.index')->with('message','User Created');
     }
 }

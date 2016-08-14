@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Portfolio;
+use Illuminate\Support\Facades\DB;
+
 
 class PagesController extends Controller
 {
@@ -26,7 +29,20 @@ class PagesController extends Controller
 
     public function portfolio()
     {
-        return view ('portfolio');
+        $visual = DB::table('portfolio')->where('type','=','3D visualization')->get();
+        return view ('portfolio',compact('visual'));
+    }
+
+    public function graphic()
+    {
+        $graphic = DB::table('portfolio')->where('type','=','Graphic Design')->get();
+        return view ('graphic',compact('graphic'));
+    }
+
+    public function animation()
+    {
+        $animation = DB::table('portfolio')->where('type','=','animation')->get();
+        return view ('animation',compact('animation'));
     }
 
     public function admin()

@@ -31,11 +31,12 @@
             </div>
         </div>
 
-        <!-- top navigation -->
         <div class="top_nav">
             @include('includes.back_includes.top_header')
+            <div class="message-container">
+                @include('includes.back_includes.messages')
+            </div>
         </div>
-        <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
@@ -88,6 +89,7 @@
         <thead>
         <tr>
             <th>Name</th>
+            <th>Type</th>
             <th>Image</th>
             <th>Action</th>
 
@@ -96,6 +98,15 @@
 
 
        <tbody>
+       @foreach($portfolio as $portfolio)
+           <tr>
+           <td>{{$portfolio->name}}</td>
+           <td>{{$portfolio->type}}</td>
+              <td><img width="200" height="100" src="{{ asset('/img/portfolio/'.$portfolio->file_path) }}" alt=""></td>
+           <td><span><a href="{{url ('admin/portfolio/deletePortfolio',$portfolio->id)}}"><i class="fa fa-trash-o"> Delete</i></a></span>
+           </td>
+           </tr>
+           @endforeach
 
        </tbody>
         </table>
@@ -112,56 +123,38 @@
         <p class="text-muted font-13 m-b-30">
         </p>
 
-            <form id="demo-form" data-parsley-validate>
-                <label for="fullname">Name :</label>
-                <input type="text" id="fullname" class="form-control" name="fullname" required />
+            {!! Form::open(['url' => '/admin/portfolio','files'=>'true']) !!}
+            {!! Form::label('name',null,'Name') !!}
+            {!! Form::text('name',null,['class'=>'form-control','id'=>'fullname']) !!}
+                <br/>
+            {!! Form::label('type',null,'Choose Type') !!}
+            {!! Form::select('type',[
+            '3D visualization' =>'3D visualization',
+            'Graphic Design' =>'Graphic Design',
+            'Animation' => 'Animation'],
+
+           null, ['class'=>'form-control']) !!}
+
                 <br/>
 
-                    <label for="heard">Choose Type:</label>
-                    <select id="heard" class="form-control" required>
-                        <option value="">Choose..</option>
-                        <option value="3D visualization">3D Visualization</option>
-                        <option value="Graphic Design">Graphic Design</option>
-                        <option value="Animation">Animation</option>
-                    </select>
-                <br/>
-                    <label for="message">Add Description</label>
-                    <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
-                              data-parsley-validation-threshold="10"></textarea>
-
-                    <br/>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
-                            <div class="x_title">
-                                <h2>Dropzone multiple file uploader</h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <p>Drag multiple files to the box below for multi upload or click to select files. This is for demonstration purposes only, the files are not uploaded to any server.</p>
-                                <form action="form_upload.html" class="dropzone"></form>
-                                <br />
-                                <br />
-                                <br />
-                                <br />
+                            <div class="form-group">
+                                {!! Form::label('image', 'Choose an image') !!}
+                                {!! Form::file('image') !!}
                             </div>
                         </div>
                     </div>
                 </div>
                 <br/>
 
-                    <span class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add Portfolio</span>
-            </form>
+            <div class="input-group input-lg text-center">
+                {!! Form::button('<i class="fa fa-plus"></i> Create Portfolio',['type'=>'submit', 'class'=>'btn  btn-inverse ']) !!}
+            </div>
+
+            {!! Form::close() !!}
         </div>
         </div>
         </div>

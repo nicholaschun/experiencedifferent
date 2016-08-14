@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Portfolio;
+use Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Input;
+use App\Http\Requests\CreatePortfolioRequest;
+
+
 
 class PortfolioController extends Controller
 {
@@ -16,7 +22,8 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        return view('admin.portfolio.index');
+        $portfolio = Portfolio::all();
+        return view('admin.portfolio.index', compact('portfolio'));
     }
 
     /**
@@ -35,9 +42,24 @@ class PortfolioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePortfolioRequest $request)
     {
-        //
+
+        $input= Request::all();
+        $input['created_at'] = Carbon::now();
+
+        $file = Input::file('image');
+        $imageName = uniqid(5);
+
+
+        $name = $imageName.'.'. $file->getClientOriginalExtension();
+
+        $input['file_path'] = $name;
+        $file->move(public_path().'/img/portfolio/', $name);
+
+        Portfolio::create($input);
+        return redirect()->back()->with('message','Portfolio created Sucessfully');
+
     }
 
     /**
@@ -83,5 +105,10 @@ class PortfolioController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deletePortfolio($id){
+        Portfolio::findOrFail($id)->delete();
+        return redirect()->back()->with('message','Portfolio Deleted');
     }
 }

@@ -16,6 +16,8 @@
 
     <!-- Custom CSS -->
     <link href="{{ asset ('/assets/css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset ('/assets/css/lightbox.css') }}" rel="stylesheet">
+    <link href="{{ asset ('/assets/css/main2.css') }}" rel="stylesheet">
     <link href="{{ asset ('/assets/css/component.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset ('/assets/fonts/font-awesome.min.css') }}">
 

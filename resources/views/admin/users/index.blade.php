@@ -34,11 +34,15 @@
         <!-- top navigation -->
         <div class="top_nav">
             @include('includes.back_includes.top_header')
+            <div class="message-container">
+                @include('includes.back_includes.messages')
+            </div>
         </div>
         <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
+
         <div class="">
         <div class="page-title">
             <div class="title_left">
@@ -89,6 +93,7 @@
         <tr>
             <th>Username</th>
             <th>Status</th>
+            <th>Role</th>
             <th>Action</th>
 
         </tr>
@@ -96,7 +101,17 @@
 
 
        <tbody>
+       @foreach($users as $users)
+        <tr>
+            <td><a href="{{ url('/admin/users/', $users->id) }}">{{$users->email}}</a></td>
+            <td>{{$users->status}}</td>
+            <td>{{$users->role}}</td>
 
+            <td>
+
+            </td>
+        </tr>
+           @endforeach
        </tbody>
         </table>
         </div>
@@ -107,10 +122,42 @@
         <div class="x_title">
             <h2>Add new user <small></small></h2>
             <div class="clearfix"></div>
+
         </div>
         <div class="x_content">
-        <p class="text-muted font-13 m-b-30">
-        </p>
+
+                {!! Form::open(['url' => 'admin/users/']) !!}
+
+                {!! Form::label('name',null,'Full Name') !!}
+                {!! Form::text('name',null,['class'=> 'form-control','id' => 'fullname', 'placeholder' =>'Enter your name in full']) !!}
+                <br/>
+
+                {!! Form::label('email',null,'Email') !!}
+                {!! Form::email('email',null,['class' =>'form-control','id' => 'email', 'placeholder' => 'Enter your email address']) !!}
+                <br/>
+
+                {!! Form::label('selectUserRole',null, 'Select User Role') !!}
+                {!! Form::select('role',['admin' => 'Admin','user' =>'User'],null, ['class'=>'input-lg form-control']) !!}
+                <br/>
+
+                {!! Form::label('password',null,'Password') !!}
+                {!! Form::password('password',null,['class'=>'form-control','id' => 'password','type'=>'password','placeholder' => 'Enter your password']) !!}
+                <br/>
+
+                {!! Form::label('repeat-password',null,'Confirm Password') !!}
+                {!! Form::password('repeat-password',null,['class'=>'form-control','id' =>'confirm-password', 'placeholder' => 'Repeat your password']) !!}
+                <br/>
+
+
+            <div class="input-group input-lg text-center">
+                {!! Form::button('<i class="fa fa-user"></i> Create new user',['type'=>'submit', 'class'=>'btn  btn-inverse ']) !!}
+            </div>
+
+                {!! Form::close() !!}
+
+
+
+
         </div>
         </div>
         </div>

@@ -58,95 +58,34 @@
         </div>
 
         <div class="clearfix"></div>
-
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
+                {!! Form::open() !!}
+
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Add Text</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
+
                         </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <div id="alerts"></div>
-                        <div class="btn-toolbar editor" data-role="editor-toolbar" data-target="#editor">
-                            <div class="btn-group">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="fa fa-font"></i><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                </ul>
-                            </div>
-
-                            <div class="btn-group">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="fa fa-text-height"></i>&nbsp;<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a data-edit="fontSize 5">
-                                            <p style="font-size:17px">Huge</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-edit="fontSize 3">
-                                            <p style="font-size:14px">Normal</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a data-edit="fontSize 1">
-                                            <p style="font-size:11px">Small</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="btn-group">
-                                <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="fa fa-bold"></i></a>
-                                <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="fa fa-italic"></i></a>
-                                <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="fa fa-strikethrough"></i></a>
-                                <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="fa fa-underline"></i></a>
-                            </div>
-
-                            <div class="btn-group">
-                                <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="fa fa-list-ul"></i></a>
-                                <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="fa fa-list-ol"></i></a>
-                                <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="fa fa-dedent"></i></a>
-                                <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="fa fa-indent"></i></a>
-                            </div>
-
-                            <div class="btn-group">
-                                <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="fa fa-align-left"></i></a>
-                                <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="fa fa-align-center"></i></a>
-                                <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="fa fa-align-right"></i></a>
-                                <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="fa fa-align-justify"></i></a>
-                            </div>
-
-                            <div class="btn-group">
-                                <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="fa fa-link"></i></a>
-                                <div class="dropdown-menu input-append">
-                                    <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
-                                    <button class="btn" type="button">Add</button>
+                        <div class="row">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12 nopadding">
+                                        <textarea   name="about" id="">
+                                            @foreach($aboutUs as $about)
+                                                {{$about->about}}
+                                            @endforeach
+                                        </textarea>
+                                    </div>
                                 </div>
-                                <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="fa fa-cut"></i></a>
-                            </div>
-
-                            <div class="btn-group">
-                                <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="fa fa-picture-o"></i></a>
-                                <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
-                            </div>
-
-                            <div class="btn-group">
-                                <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="fa fa-undo"></i></a>
-                                <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="fa fa-repeat"></i></a>
                             </div>
                         </div>
-
-                        <div id="editor" class="editor-wrapper"></div>
-
-                        <textarea name="descr" id="descr" style="display:none;"></textarea>
-
                         <br />
 
                         <div class="x_title">
@@ -155,18 +94,28 @@
                         </div>
                         <br/>
 
+                        @foreach($telephone as $telephone1)
 
                         <div class=" form-group has-feedback">
-                            <input type="text" name="phone" class="form-control" placeholder="Add Phone " id="inputSuccess5" >
+                            {!! Form::text('phone',$telephone1->telephone,['class'=>'form-control','placeholder'=>'Add Phone','id'=>'inputSuccess5']) !!}
+                            {!! Form::hidden('id',$telephone1->id,['class'=>'form-control','placeholder'=>'Add Phone','id'=>'inputSuccess5']) !!}
                             <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
 
                         </div>
+                        @endforeach
+
+                        @foreach($email as $email1)
 
                         <div class=" form-group has-feedback">
-                            <input type="text"  name="email" class="form-control" placeholder="Add email" id="inputSuccess5" >
-                            <span class="fa fa-envelope form-control-feedback right" aria-hidden="true"></span>
+                            {!! Form::text('email',$email1->email,['class'=>'form-control','placeholder'=>'Add Email','id'=>'inputSuccess5']) !!}
+                            {!! Form::hidden('id',$email1->id,['class'=>'form-control','placeholder'=>'Add Phone','id'=>'inputSuccess5']) !!}
+
+                            <span class="fa fa-envelope-o form-control-feedback right" aria-hidden="true"></span>
 
                         </div>
+                        @endforeach
+
+
                         <br/>
 
                         <div class="x_title">
@@ -176,11 +125,15 @@
 
                         <br/>
 
-                        <div class=" form-group has-feedback">
-                            <input type="text" name="client_name" class="form-control" placeholder="Add Name " id="inputSuccess5" >
-                            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
 
-                        </div>
+
+                         <div class="client">
+                             <article class="styled">
+                                 <input type="file" name="imagefile" onchange="previewImage(this,[256],4);" />
+                                 <div class="imagePreview"></div>
+                             </article>
+
+            </div>
                         <br/>
 
 
@@ -189,7 +142,11 @@
 
                     </div>
                 </div>
+                {!! Form::close() !!}
+
             </div>
+
+
             <div class="col-md-6 col-sm-6 col-xs-6">
         <div class="x_panel">
         <div class="x_title">
@@ -203,32 +160,57 @@
             <div class="x_title">
                 <h2><i class="fa fa-user"></i> About us</h2>
                 <div class="clearfix"></div>
+
+
             </div>
-            <br/>
+            @foreach($aboutUs as $about)
+                {{$about->about}}
+            @endforeach
+            <br/>  <br/>  <br/>
 
             <div class="x_title">
                 <h2><i class="fa fa-globe"></i> Contact information</h2>
                 <div class="clearfix"></div>
             </div>
+            @foreach($telephone as $telephone)
+                <span><i class="fa fa-phone "></i> {{$telephone->telephone}}</span>
+                <span><a href="{{url ('admin/about/deleteTelephone',$telephone->id)}}"><i class="fa fa-trash-o"></i></a></span>
+
+                <br>
+            @endforeach
             <br/>
+
+            @foreach($email as $email)
+                <span><i class="fa fa-envelope "></i> {{$email->email}}</span>
+                <span><a href="{{url ('admin/about/deleteEmail',$email->id)}}"><i class="fa fa-trash-o"></i></a></span>
+
+            @endforeach
+            <br/> <br/> <br/>
 
             <div class="x_title">
                 <h2> <i class="fa fa-users"></i> Our Clients</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="client">
-
-                <span>
-                     <img src="{{ asset ('/assets/img/Logo_Appolonia.png') }}" alt="" width="200" height="100"/>
-                <div>
-                    <span><a href="#"><i class="fa fa-trash-o"> Delete</i></a></span>
+                @foreach($clients as $clients)
+                    <span>
+                    <img width="100" height="50" src="{{asset ('/assets/img/clients/'.$clients->client_image_path)}}">
+                        <div>
+                    <span><a href="{{url ('admin/about/deleteClient',$clients->id)}}"><i class="fa fa-trash-o"></i></a></span>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                    @endforeach
+                    </span>
+                <div>
+                <!--
+                    <span><a href="#"><i class="fa fa-trash-o"> Delete</i></a></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp&nbsp;
                     <span><a href="#"><i class="fa fa-eye"> Visible</i></a></span>
+
+                    -->
+
                 </div>
                 </span>
-
-
-
 
             </div>
             <br/>
@@ -256,74 +238,15 @@
 @include('includes.back_includes.scripts')
 
 
-
+<script>
+    $(document).ready(function() {
+        $("#txtEditor").Editor();
+    });
+</script>
 </body>
 
 <!-- bootstrap-wysiwyg -->
-<script>
-    $(document).ready(function() {
-        function initToolbarBootstrapBindings() {
-            var fonts = ['Serif', 'Sans', 'Arial', 'Arial Black', 'Courier',
-                    'Courier New', 'Comic Sans MS', 'Helvetica', 'Impact', 'Lucida Grande', 'Lucida Sans', 'Tahoma', 'Times',
-                    'Times New Roman', 'Verdana'
-                ],
-                fontTarget = $('[title=Font]').siblings('.dropdown-menu');
-            $.each(fonts, function(idx, fontName) {
-                fontTarget.append($('<li><a data-edit="fontName ' + fontName + '" style="font-family:\'' + fontName + '\'">' + fontName + '</a></li>'));
-            });
-            $('a[title]').tooltip({
-                container: 'body'
-            });
-            $('.dropdown-menu input').click(function() {
-                return false;
-            })
-                .change(function() {
-                    $(this).parent('.dropdown-menu').siblings('.dropdown-toggle').dropdown('toggle');
-                })
-                .keydown('esc', function() {
-                    this.value = '';
-                    $(this).change();
-                });
 
-            $('[data-role=magic-overlay]').each(function() {
-                var overlay = $(this),
-                    target = $(overlay.data('target'));
-                overlay.css('opacity', 0).css('position', 'absolute').offset(target.offset()).width(target.outerWidth()).height(target.outerHeight());
-            });
-
-            if ("onwebkitspeechchange" in document.createElement("input")) {
-                var editorOffset = $('#editor').offset();
-
-                $('.voiceBtn').css('position', 'absolute').offset({
-                    top: editorOffset.top,
-                    left: editorOffset.left + $('#editor').innerWidth() - 35
-                });
-            } else {
-                $('.voiceBtn').hide();
-            }
-        }
-
-        function showErrorAlert(reason, detail) {
-            var msg = '';
-            if (reason === 'unsupported-file-type') {
-                msg = "Unsupported format " + detail;
-            } else {
-                console.log("error uploading file", reason, detail);
-            }
-            $('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                '<strong>File upload error</strong> ' + msg + ' </div>').prependTo('#alerts');
-        }
-
-        initToolbarBootstrapBindings();
-
-        $('#editor').wysiwyg({
-            fileUploadError: showErrorAlert
-        });
-
-        window.prettyPrint;
-        prettyPrint();
-    });
-</script>
 <!-- /bootstrap-wysiwyg -->
 
 </html>

@@ -126,7 +126,7 @@
 </footer>
 
 
-@include('front_includes.scripts')
+@include('includes.front_includes.scripts')
 
 
 </body>

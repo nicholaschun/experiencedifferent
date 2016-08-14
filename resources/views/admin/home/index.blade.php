@@ -85,9 +85,57 @@
         <p class="text-muted font-13 m-b-30">
         </p>
             <p>
-                Slide 1
-                
+                <b>Slide 1 </b>
+                <div class="client">
+
+                <span>
+                     <img src="{{ asset ('/assets/img/clients/Logo_Appolonia.png') }}" alt="" width="200" height="100"/>
+                <div>
+                    <span><a href="#"><i class="fa fa-trash-o"> Disable</i></a></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span><a href="#"><i class="fa fa-eye"> Replace</i></a></span>
+                </div>
+                </span>
+
+            </div> 
             </p>
+
+            <p>
+                <b>Slide 2 </b>
+                <div class="client">
+
+                <span>
+                     <img src="{{ asset ('/assets/img/clients/white_wall.png') }}" alt="" width="200" height="100"/>
+                <div>
+                    <span><a href="#"><i class="fa fa-trash-o"> Disable</i></a></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span><a href="#"><i class="fa fa-eye"> Replace</i></a></span>
+                </div>
+                </span>
+
+            </div> 
+            </p>
+
+            <p>
+                <b>Slide 3 </b>
+                <div class="client">
+
+                <span>
+                     <img src="{{ asset ('/assets/img/clients/logo_primrose.png') }}" alt="" width="200" height="100"/>
+                <div>
+                    <span><a href="#"><i class="fa fa-trash-o"> Disable</i></a></span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span><a href="#"><i class="fa fa-eye"> Replace</i></a></span>
+                </div>
+                </span>
+
+            </div> 
+            </p>
+
+            <br>
+
+            <span class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</span>
+
 
         </div>
         </div>

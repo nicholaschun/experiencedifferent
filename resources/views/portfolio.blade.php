@@ -22,52 +22,34 @@
 
                 <!-- matter-portfolio-filter -->
                 <ul class="matter-filter text-center">
-                    e<li class="filter active" data-filter="all">
-                        All
+
+                    <li class="filter active" data-filter=".3D visualization">
+                        <a href="portfolio">3D visualization</a>
                     </li>
-                    <li class="filter" data-filter=".3d">
-                        3D visualization
+                    <li class="filter" >
+                        <a href="graphic">Graphic Design</a>
                     </li>
-                    <li class="filter" data-filter=".graphics">
-                        Graphic Design
-                    </li>
-                    <li class="filter" data-filter=".animation">
-                        Animations
+                    <li class="filter">
+                        <a href="animation">Animations</a>
                     </li>
                 </ul>
 
                 <div class="matter_portfolio">
-                    <div  class="col-lg-4 col-md-4 col-sm-6 col-xs-12 showDiv mix  html 3d">
+                    @foreach($visual as $visual)
+
+                    <div  class="col-lg-4 col-md-4 col-sm-6 col-xs-12 showDiv mix  html {{$visual->type}}">
                         <div class="portfolio-item">
-                            <a data-lightbox="image1" href="img/portfolio/41.png" class="preview">
-                                <img src="img/portfolio/41.png" alt="">
+                            <a data-lightbox="image1" href="{{ asset('/img/portfolio/'.$visual->file_path) }}" class="preview">
+                                <img src="{{ asset('/img/portfolio/'.$visual->file_path) }}" alt="">
                             </a>
 
                         </div>
                     </div>
+                    @endforeach
 
-                    <div  class="col-lg-4 col-md-4 col-sm-6 col-xs-12 showDiv mix  html 3d">
-                        <div class="portfolio-item">
-                            <a data-lightbox="image1" href="img/portfolio/46.png" class="preview">
-                                <img src="img/portfolio/46.png" alt="">
-                            </a>
-
-                        </div>
+                    <div align="center">
+                        <a href="#" style="font-weight: bold;font-size: 15px;color: #c1272d;" class="" id="loadMore">Load More</a>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-                        <div align="center">
-                            <a href="#" class="btn btn-info btn-lg" id="loadMore">Load More</a>
-                        </div>
 
 
                 </div>
@@ -99,35 +81,21 @@
 
 
 <!-- jQuery -->
-<script src="assets/js/jquery.js"></script>
-<script src="assets/js/modernizr.custom.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/text-rotator.js"></script>
-
-<!--jQuery Nav-->
-<script src="assets/js/jquery.nav.js"></script>
-
-<!--WOW Scroll Spy-->
-<script src="assets/js/wow.js"></script>
-<!--Smooth on Scroller-->
-<script src="assets/js/smooth-on-scroll.js"></script>
-<!--Smooth Scroller-->
-<script src="assets/js/smooth-scroll.js"></script>
-<!-- Light Box -->
-<script src="assets/js/lightbox.min.js"></script>
-<!-- Mixitup  -->
-<script src="assets/js/jquery.mixitup.min.js"></script>
-<!-- Owl carousel  -->
-<script src="assets/js/owl.carousel.js"></script>
-<!-- preset js -->
-<script src="assets/js/style.changer.js"></script>
-<!-- Counterup -->
-<script src="assets/js/jquery.counterup.min.js"></script>
-<!-- waypoints -->
-<script src="assets/js/waypoints.min.js"></script>
-<!-- All JS plugin Triggers -->
-<script src="assets/js/main.js"></script>
+<script src="{{ asset('/assets/js/jquery.js') }}"></script>
+<script src="{{ asset('/assets/js/modernizr.custom.js') }}"></script>
+<script src="{{ asset('/assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/assets/js/text-rotator.js') }}"></script>
+<script src="{{ asset('/assets/js/jquery.nav.js') }}"></script>
+<script src="{{ asset('/assets/js/wow.js') }}"></script>
+<script src="{{ asset('/assets/js/smooth-on-scroll.js') }}"></script>
+<script src="{{ asset('/assets/js/smooth-scroll.js') }}"></script>
+<script src="{{ asset('/assets/js/lightbox.min.js') }}"></script>
+<script src="{{ asset('/assets/js/jquery.mixitup.min.js') }}"></script>
+<script src="{{ asset('/assets/js/owl.carousel.js') }}"></script>
+<script src="{{ asset('/assets/js/style.changer.js') }}"></script>
+<script src="{{ asset('/assets/js/jquery.counterup.min.js') }}"></script>
+<script src="{{ asset('/assets/js/waypoints.min.js') }}"></script>
+<script src="{{ asset('/assets/js/main.js') }}"></script>
 
 <script>
     $(function () {
@@ -187,7 +155,6 @@
         $('#thumbnails a').lightBox();
     });
 </script>
-
 
 
 </body>

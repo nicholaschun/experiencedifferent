@@ -5,6 +5,8 @@
 <script src="{{ asset('/assets/js/Chart.js/dist/Chart.min.js') }}"></script>
 <script src="{{ asset('/assets/js/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
 <script src="{{ asset('/assets/js/custom.min.js') }}"></script>
+<script src="{{ asset('/assets/js/editor.js') }}"></script>
+<script src="{{ asset('/assets/js/html5.image.preview.min.js') }}"></script>
 
 
 <script src="{{ asset('/assets/js/jquery.dataTables.min.js') }}"></script>
