@@ -10,6 +10,8 @@ use Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests\CreatePortfolioRequest;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -20,10 +22,18 @@ class PortfolioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //to protect all routes within this controller
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
+        $name = Auth::user()->name;
         $portfolio = Portfolio::all();
-        return view('admin.portfolio.index', compact('portfolio'));
+        return view('admin.portfolio.index', compact('portfolio','name'));
     }
 
     /**
@@ -45,20 +55,30 @@ class PortfolioController extends Controller
     public function store(CreatePortfolioRequest $request)
     {
 
-        $input= Request::all();
-        $input['created_at'] = Carbon::now();
+        //$input= Request::all();
+        //$input['created_at'] = Carbon::now();
 
-        $file = Input::file('image');
-        $imageName = uniqid(5);
+        $files = Input::file('file_path');
 
+        if (isset($files)) {
+            foreach ($files as $file):
+                foreach (Input::get('type') as $types):
+                    if($file !==null):
+                $imageName = uniqid(5);
+                $name = $imageName . '.' . $file->getClientOriginalExtension();
 
-        $name = $imageName.'.'. $file->getClientOriginalExtension();
-
-        $input['file_path'] = $name;
-        $file->move(public_path().'/img/portfolio/', $name);
-
-        Portfolio::create($input);
-        return redirect()->back()->with('message','Portfolio created Sucessfully');
+                $input['file_path'] = $name;
+                $file->move(public_path() . '/assets/img/portfolio/', $name);
+                $portfolio = new Portfolio();
+                $portfolio->type = $types;
+                $portfolio->file_path = $name;
+                $portfolio->save();
+                        else:return redirect()->back()->withErrors('Nothing Selected');
+                            endif;
+                endforeach;
+                endforeach;
+            }
+        return redirect()->back()->with('message', 'Portfolio created Sucessfully');
 
     }
 

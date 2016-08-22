@@ -17,13 +17,8 @@
                     <a data-toggle="tooltip" data-placement="top" title="Settings">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout">
+
+                    <a href="{{url('auth/logout')}}" data-toggle="tooltip" data-placement="top" title="Logout">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -88,7 +83,7 @@
         <div class="x_content">
         <p class="text-muted font-13 m-b-30">
         </p>
-        <table id="datatable" class="table table-striped table-bordered">
+        <table id="myTable" class="table table-striped table-bordered">
         <thead>
         <tr>
             <th>Username</th>
@@ -103,13 +98,12 @@
        <tbody>
        @foreach($users as $users)
         <tr>
-            <td><a href="{{ url('/admin/users/', $users->id) }}">{{$users->email}}</a></td>
-            <td>{{$users->status}}</td>
+            <td>{{$users->email}}</td>
+            <td>{!! $users->status !!}</td>
             <td>{{$users->role}}</td>
+            <td><a href="{{url('admin/users/deleteUser',$users->id)}}"><i class="fa fa-trash-o"> Delete</i> </a></td>
 
-            <td>
 
-            </td>
         </tr>
            @endforeach
        </tbody>
@@ -126,31 +120,30 @@
         </div>
         <div class="x_content">
 
-                {!! Form::open(['url' => 'admin/users/']) !!}
+                {!! Form::open(['url' => '/admin/users/addUser']) !!}
 
                 {!! Form::label('name',null,'Full Name') !!}
-                {!! Form::text('name',null,['class'=> 'form-control','id' => 'fullname', 'placeholder' =>'Enter your name in full']) !!}
+                {!! Form::text('name',null,['class'=> 'form-control','id' => 'name', 'placeholder' =>'Enter your name in full']) !!}
                 <br/>
 
                 {!! Form::label('email',null,'Email') !!}
-                {!! Form::email('email',null,['class' =>'form-control','id' => 'email', 'placeholder' => 'Enter your email address']) !!}
+                {!! Form::text('email',null,['class' =>'form-control','type'=>'email','id' => 'email', 'placeholder' => 'Enter your email address']) !!}
                 <br/>
 
-                {!! Form::label('selectUserRole',null, 'Select User Role') !!}
-                {!! Form::select('role',['admin' => 'Admin','user' =>'User'],null, ['class'=>'input-lg form-control']) !!}
+                {!! Form::label('Select User Role',null, 'Select User Role') !!}
+                {!! Form::select('role',['admin' => 'Admin'],null, ['class'=>'form-control']) !!}
                 <br/>
 
                 {!! Form::label('password',null,'Password') !!}
-                {!! Form::password('password',null,['class'=>'form-control','id' => 'password','type'=>'password','placeholder' => 'Enter your password']) !!}
+                <input type="password" name="password" class="form-control" placeholder="Password"/>
                 <br/>
 
                 {!! Form::label('repeat-password',null,'Confirm Password') !!}
-                {!! Form::password('repeat-password',null,['class'=>'form-control','id' =>'confirm-password', 'placeholder' => 'Repeat your password']) !!}
+                 <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password"/>
                 <br/>
 
 
             <div class="input-group input-lg text-center">
-                {!! Form::button('<i class="fa fa-user"></i> Create new user',['type'=>'submit', 'class'=>'btn  btn-inverse ']) !!}
             </div>
 
                 {!! Form::close() !!}

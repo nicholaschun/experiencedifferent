@@ -16,7 +16,7 @@
                     <li><a href="/admin/portfolio/">Portfolio Page</a></li>
                 </ul>
             </li>
-            <li><a><i class="fa fa-bar-chart-o"></i> Analytics </a>
+            <li><a target="_blank" href="https://analytics.google.com/analytics/web/#report/defaultid/a82807486w122426743p128099459/"><i class="fa fa-bar-chart-o"></i> Analytics </a>
             </li>
 
         </ul>

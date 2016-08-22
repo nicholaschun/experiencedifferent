@@ -17,7 +17,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <span class="logo" >
-                    <a class="navbar-brand" href="index.blade.php"><span class="logo-the">the</span><br><span  style="letter-spacing: 5px;" class="logo-main">experience  different</span><br>
+                    <a class="navbar-brand" href="/"><span class="logo-the">the</span><br><span  style="letter-spacing: 5px;" class="logo-main">experience  different</span><br>
                         <span  class="pull-right logo-project">project</span> </a>
                         </span>
                 </div>
@@ -41,29 +41,44 @@
         </nav>
         <!-- Indicators -->
         <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
+            @foreach($home as $key =>$homeSlider)
+                @if($key ==0)
+            <li data-target="#myCarousel" data-slide-to="{{$key}}" class="active"></li>
+                @endif
+            @if($key >0)
+            <li data-target="#myCarousel" data-slide-to="{{$key}}"></li>
+                    @endif
+                @endforeach
+
         </ol>
 
 
         <!-- Wrapper for Slides -->
         <div class="carousel-inner">
+            @foreach($home as $key =>$homeSlider)
+
+                @if($key ==0)
+
             <div class="item active">
                 <!-- Set the first background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('assets/img/s1.png');"></div>
+                <div class="fill" style="background-image:url({{ asset('/assets/img/home_slider/'.$homeSlider->slide_image_path) }});"></div>
 
             </div>
+                @endif
+            @if($key >0)
             <div class="item">
                 <!-- Set the second background image using inline CSS below. -->
-                <div class="fill" style="background-image:url('assets/img/s2.png');"></div>
+                <div class="fill" style="background-image:url({{ asset('/assets/img/home_slider/'.$homeSlider->slide_image_path) }});"></div>
 
             </div>
-            <div class="item">
-                <!-- Set the third background image using inline CSS below. -->
+                    @endif
+            @endforeach;
+            <!--<div class="item">
+                <!-- Set the third background image using inline CSS below.
                 <div class="fill" style="background-image:url('assets/img/s3.png');"></div>
 
-            </div>
+            </div>-->
+
 
         </div>
 

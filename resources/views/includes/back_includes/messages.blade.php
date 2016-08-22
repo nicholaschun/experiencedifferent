@@ -2,7 +2,7 @@
     <div class="alert alert-danger error-msg">
 
             @foreach($errors->all() as $errors)
-                <p ><i class="fa fa-info"> {{$errors}}</i></p>
+                <p ><i class="fa fa-warning"> {{$errors}}</i></p>
             @endforeach
 
     </div>

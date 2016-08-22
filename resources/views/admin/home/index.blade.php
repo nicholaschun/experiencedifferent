@@ -17,13 +17,8 @@
                     <a data-toggle="tooltip" data-placement="top" title="Settings">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout">
+
+                    <a href="{{url('auth/logout')}}" data-toggle="tooltip" data-placement="top" title="Logout">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -34,6 +29,9 @@
         <!-- top navigation -->
         <div class="top_nav">
             @include('includes.back_includes.top_header')
+            <div class="message-container">
+                @include('includes.back_includes.messages')
+            </div>
         </div>
         <!-- /top navigation -->
 
@@ -82,61 +80,37 @@
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
+            {!! Form::open(['url' => '/admin/home','files'=>'true']) !!}
         <p class="text-muted font-13 m-b-30">
         </p>
             <p>
-                <b>Slide 1 </b>
-                <div class="client">
+                <b>Add Slides </b>
+                <span class="btn btn-xs btn-info"><a href="javascript:void(0);"  class="add_slide"><i class="fa fa-plus"></i></a></span>
 
-                <span>
-                     <img src="{{ asset ('/assets/img/clients/Logo_Appolonia.png') }}" alt="" width="200" height="100"/>
-                <div>
-                    <span><a href="#"><i class="fa fa-trash-o"> Disable</i></a></span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span><a href="#"><i class="fa fa-eye"> Replace</i></a></span>
+            <div class="x_panel">
+
+
+                <div class="form-group">
+                    {!! Form::label('image', 'Choose an image') !!}
+                    <article class="styled">
+                        <input type="file" name="slide_path[]" onchange="previewImage(this,[256],4);" />
+                        <div class="imagePreview"></div>
+                    </article>
                 </div>
-                </span>
 
-            </div> 
+
+            </div>
+
+            <div id="addslide">
+
+            </div>
             </p>
 
-            <p>
-                <b>Slide 2 </b>
-                <div class="client">
-
-                <span>
-                     <img src="{{ asset ('/assets/img/clients/white_wall.png') }}" alt="" width="200" height="100"/>
-                <div>
-                    <span><a href="#"><i class="fa fa-trash-o"> Disable</i></a></span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span><a href="#"><i class="fa fa-eye"> Replace</i></a></span>
-                </div>
-                </span>
-
-            </div> 
-            </p>
-
-            <p>
-                <b>Slide 3 </b>
-                <div class="client">
-
-                <span>
-                     <img src="{{ asset ('/assets/img/clients/logo_primrose.png') }}" alt="" width="200" height="100"/>
-                <div>
-                    <span><a href="#"><i class="fa fa-trash-o"> Disable</i></a></span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <span><a href="#"><i class="fa fa-eye"> Replace</i></a></span>
-                </div>
-                </span>
-
-            </div> 
-            </p>
-
-            <br>
-
-            <span class="btn btn-primary"><i class="fa fa-save"></i> Save Changes</span>
 
 
+            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add Slider</button>
+
+{!! Form::close() !!}
         </div>
         </div>
         </div>
@@ -146,15 +120,41 @@
             <h2>Preview <small></small></h2>
             <div class="clearfix"></div>
         </div>
-        <div class="x_content">
-        <p class="text-muted font-13 m-b-30">
-        </p>
+
+            <!-- Wrapper for Slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <!-- Set the first background image using inline CSS below. -->
+                    <div class="fill" style="background-image:url('assets/img/s1.png');"></div>
+
+                </div>
+                @foreach($home as $homeSlider)
+                    <div class="item">
+                        <!-- Set the second background image using inline CSS below. -->
+                        <div class="fill" style="background-image:url({{ asset('/assets/img/home_slider/'.$homeSlider->slide_image_path) }});"></div>
+
+                    </div>
+                @endforeach;
+                <!--<div class="item">
+                    <!-- Set the third background image using inline CSS below.
+                    <div class="fill" style="background-image:url('assets/img/s3.png');"></div>
+
+                </div>-->
+
+
 
         </div>
+            <div class="">
+                @foreach($home as $homeSliderthumb)
+                    <span><img width="200" height="100" src="{{ asset('/assets/img/home_slider/'.$homeSliderthumb->slide_image_path) }}" alt="">
+
+                    <span class="slideDelete"><a href="{{url ('admin/home/deleteSlide',$homeSliderthumb->id)}}"><i class="fa fa-times fa-1x"></i> </a></span></span>
+
+                    &nbsp;&nbsp;&nbsp;
+                    @endforeach
+            </div>
         </div>
         </div>
-
-
 
 
         </div>
@@ -171,13 +171,8 @@
 <!-- jQuery -->
 @include('includes.back_includes.scripts')
 
-<script>
-    $('.carousel').carousel({
-        interval: 15000, //changes the speed
-        paginationSpeed:5000,
-        easing:5000
-    })
-</script>
+<!-- Script to Activate the Carousel -->
+
 
 </body>
 </html>

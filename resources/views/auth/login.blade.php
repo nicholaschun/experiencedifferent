@@ -16,22 +16,40 @@
   </head>
 
   <body style="background-color:white;">
-  
-  
 
+
+  <div>
+
+
+
+
+  </div>
     <div class="login-form">
      <h1>Admin</h1>
+        @if (count($errors) > 0)
+            <div class="show_error">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li style="color: #bc3d47;list-style: none">{!! $error !!}</li>
+                @endforeach
+            </ul>
+                </div>
+        @endif
+
+        {!! Form::open(['url'=>'/auth/login','method'=>'post']) !!}
      <div class="form-group ">
-       <input type="text" class="form-control" placeholder="Email Address " id="UserName">
+         {!! Form::text('email',null,['class'=>'form-control','placeholder'=>'Email Address']) !!}
        <i class="fa fa-user"></i>
      </div>
      <div class="form-group log-status">
-       <input type="password" class="form-control" placeholder="Password" id="Passwod">
+         <input class="form-control" name="password" type="password" placeholder="Password" />
        <i class="fa fa-lock"></i>
      </div>
       <span class="alert">Invalid Credentials</span>
       <a class="link" href="#">Lost your password?</a>
-     <button type="button" class="log-btn" >Log in</button>
+        {!! Form::button('<i class="fa fa-lock"></i> Login',['type'=>'submit', 'class'=>'log-btn']) !!}
+
+        {!! Form::close() !!}
      
     
    </div>

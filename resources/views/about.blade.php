@@ -14,17 +14,16 @@
 
 <div class="main-body">
 
-<section id="about">
+<section style="margin: 50px;" id="">
 
-    <div class="container text-center">
+    <div class=" text-center">
         <h2 class="heading text-center">about us</h2>
 
         <div class="about">
 <p>
-    The Experience Different Project is a Ghanaian design studio <br> that specialises in providing
-    high quality photo realistic 3D visualisation,graphic design and animation services.<br>
-    Modernist ideals, attention to detail and photo-realism are hallmarks of the studio<br>
-    that ensure quality service provision.
+    @foreach($about as $about1)
+        {{$about1->about}}
+        @endforeach
 </p>
         </div>
     </div>
@@ -66,18 +65,19 @@
 <div class="container">
 
     <div class="col-lg-offset-2 col-lg-9 text-center contact-links pull-left" >
+        @foreach($telephone as $telephone)
+            <span>
+               <i class="glyphicon glyphicon-phone"></i> {{$telephone->telephone}}
+            </span>
+            <br>
+            @endforeach
 
-            <span>
-               <i class="glyphicon glyphicon-phone"></i> +233(0)246015155
+        @foreach($email as $email)
+                <span>
+               <i class="glyphicon glyphicon-envelope"></i> {{$email->email}}
             </span>
-        <br>
-            <span>
-               <i class="glyphicon glyphicon-phone"></i> +233(0)245162066
-            </span>
-        <br>
-            <span>
-               <i class="glyphicon glyphicon-envelope"></i> info@experiencedifferent.com
-            </span>
+            @endforeach
+
         <br>
         <span>
                <i class="glyphicon glyphicon-globe"></i> www.experiencedifferent.com
@@ -98,11 +98,10 @@
     <div class="container text-center">
             <h2 class="heading text-center">some of our awesome clients</h2>
         <div class="client">
+            @foreach($client as $client)
 
-            <img src="assets/img/Logo_Appolonia.png" alt="" width="200" height="100"/>
-            <img src="assets/img/Logo_White_wall_Properties.png" alt="" width="150" height="100"/>
-            <img src="assets/img/logo_primrose.png" alt="" width="200" height="100"/>
-
+            <img src="{{asset('assets/img/clients/'.$client->client_image_path)}}" alt="" width="200" height="100"/>
+            @endforeach
         </div>
     </div>
 </section>

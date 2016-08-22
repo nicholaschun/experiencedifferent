@@ -17,13 +17,8 @@
                     <a data-toggle="tooltip" data-placement="top" title="Settings">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout">
+
+                    <a href="{{url('auth/logout')}}" data-toggle="tooltip" data-placement="top" title="Logout">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -34,6 +29,9 @@
         <!-- top navigation -->
         <div class="top_nav">
             @include('includes.back_includes.top_header')
+            <div class="message-container">
+                @include('includes.back_includes.messages')
+            </div>
         </div>
         <!-- /top navigation -->
 
@@ -60,7 +58,7 @@
         <div class="clearfix"></div>
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
-                {!! Form::open() !!}
+                {!! Form::open(['url' => '/admin/about','files'=>'true']) !!}
 
                 <div class="x_panel">
                     <div class="x_title">
@@ -76,12 +74,17 @@
                         <div class="row">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-lg-12 nopadding">
-                                        <textarea   name="about" id="">
+                                    <div class="col-lg-12 ">
+                                        <textarea rows="10" style="width: 100%;"   name="about" id="">
                                             @foreach($aboutUs as $about)
                                                 {{$about->about}}
                                             @endforeach
                                         </textarea>
+                                        @foreach($aboutUs as $about)
+
+                                        {!! Form::hidden('about_id',$about->id) !!}
+                                        @endforeach
+
                                     </div>
                                 </div>
                             </div>
@@ -92,28 +95,43 @@
                             <h2>Add Contact information</h2>
                             <div class="clearfix"></div>
                         </div>
+                        <span>Telephone Number</span>
+
                         <br/>
+
+                        <span class="btn btn-xs btn-info"><a href="javascript:void(0);"  class="add_phone"><i class="fa fa-plus"></i></a></span>
 
                         @foreach($telephone as $telephone1)
 
                         <div class=" form-group has-feedback">
-                            {!! Form::text('phone',$telephone1->telephone,['class'=>'form-control','placeholder'=>'Add Phone','id'=>'inputSuccess5']) !!}
-                            {!! Form::hidden('id',$telephone1->id,['class'=>'form-control','placeholder'=>'Add Phone','id'=>'inputSuccess5']) !!}
-                            <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+                            <span>{{$telephone1->telephone}}</span> &nbsp;&nbsp; <span><a href="#">edit</a> </span>
+
 
                         </div>
                         @endforeach
+                        <div id="addphone">
+                        </div>
+                        <br>
+                        <span>Email address</span>
+                        <br>
+                        <span class="btn btn-xs btn-info"><a href="javascript:void(0);"  class="add_email"><i class="fa fa-plus"></i></a></span>
+
+                        <br>
+
 
                         @foreach($email as $email1)
 
                         <div class=" form-group has-feedback">
-                            {!! Form::text('email',$email1->email,['class'=>'form-control','placeholder'=>'Add Email','id'=>'inputSuccess5']) !!}
+                            <span>{{$email1->email}}</span> &nbsp;&nbsp; <span><a href="#">edit</a> </span>
+
+                            {!! Form::hidden('email',$email1->email,['class'=>'form-control','placeholder'=>'Add Email','id'=>'inputSuccess5']) !!}
                             {!! Form::hidden('id',$email1->id,['class'=>'form-control','placeholder'=>'Add Phone','id'=>'inputSuccess5']) !!}
 
-                            <span class="fa fa-envelope-o form-control-feedback right" aria-hidden="true"></span>
 
                         </div>
                         @endforeach
+                        <div id="addemail">
+                        </div>
 
 
                         <br/>
@@ -122,18 +140,21 @@
                             <h2>Add Clients</h2>
                             <div class="clearfix"></div>
                         </div>
+                        <span class="btn btn-xs btn-info"><a href="javascript:void(0);"  class="add_client"><i class="fa fa-plus"></i></a></span>
+
 
                         <br/>
 
 
 
-                         <div class="client">
+                         <div  class="client">
                              <article class="styled">
-                                 <input type="file" name="imagefile" onchange="previewImage(this,[256],4);" />
-                                 <div class="imagePreview"></div>
+                                 <input type="file" name="client_path[]" onchange="previewImage(this,[256],4);" />
+                                 <div  class="imagePreview"></div>
                              </article>
-
-            </div>
+                        </div>
+                        <div id="addclient">
+                        </div>
                         <br/>
 
 
@@ -183,9 +204,9 @@
             @foreach($email as $email)
                 <span><i class="fa fa-envelope "></i> {{$email->email}}</span>
                 <span><a href="{{url ('admin/about/deleteEmail',$email->id)}}"><i class="fa fa-trash-o"></i></a></span>
-
+                <br>
             @endforeach
-            <br/> <br/> <br/>
+            <br/><br/><br/>
 
             <div class="x_title">
                 <h2> <i class="fa fa-users"></i> Our Clients</h2>

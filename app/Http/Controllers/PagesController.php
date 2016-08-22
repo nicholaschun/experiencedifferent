@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\AboutUs;
+use App\Clients;
+use App\Email;
+use App\Telephone;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Portfolio;
 use Illuminate\Support\Facades\DB;
+use App\Home;
 
 
 class PagesController extends Controller
@@ -19,12 +24,17 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $home = Home::all();
+        return view('index', compact('home'));
     }
 
     public function about()
     {
-        return view('about');
+        $about = AboutUs::all();
+        $client = Clients::all();
+        $telephone = Telephone::all();
+        $email = Email::all();
+        return view('about', compact('about','client','telephone','email'));
     }
 
     public function portfolio()
@@ -45,10 +55,7 @@ class PagesController extends Controller
         return view ('animation',compact('animation'));
     }
 
-    public function admin()
-    {
-        return view ('admin.index');
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -116,7 +123,4 @@ class PagesController extends Controller
         //
     }
 
-    public function login(){
-        return view('auth.login');
-    }
 }

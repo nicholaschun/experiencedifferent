@@ -24,4 +24,18 @@ article.styled .imagePreview img {
     padding:15px;
     border:2px dashed #ccc;
     border-radius:10px;
+    width: 50%;
 }
+
+.slideDelete{
+    margin-left:-20px ;
+
+
+}
+
+.slideDelete i{
+    margin-top:-20px;
+    color: white;
+}
+
+

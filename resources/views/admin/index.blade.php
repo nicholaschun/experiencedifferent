@@ -17,13 +17,8 @@
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout">
+
+              <a href="{{url('auth/logout')}}" data-toggle="tooltip" data-placement="top" title="Logout">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -41,7 +36,7 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="row top_tiles">
-              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+             <!-- <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
                   <div class="icon"><i class="fa fa-users"></i></div>
                   <div class="count">179</div>
@@ -49,10 +44,13 @@
                   <p>users available to edit web page.</p>
                 </div>
               </div>
+              -->
               <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="tile-stats">
-                  <div class="icon"><i class="fa fa-comments-o"></i></div>
-                  <div class="count">179</div>
+                  <div class="icon"><i class="fa fa-suitcase"></i></div>
+                  <div class="count">
+                    {{$portfolio}}
+                  </div>
                   <h3>Portfolio</h3>
                   <p>number portfolio currently on webpage</p>
                 </div>

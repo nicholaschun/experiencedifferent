@@ -27,7 +27,10 @@ class AuthController extends Controller
      * Create a new authentication controller instance.
      *
      * @return void
+     *
      */
+    private $redirectTo = '/admin/';
+    private $getFailedLoginMessage = 'Invalid Username/Password';
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
@@ -56,10 +59,18 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        $confirmation_code = str_random(30);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'confirmation_code' => $confirmation_code,
+            'role'=>'admin'
+
         ]);
     }
+
+
+
+
 }

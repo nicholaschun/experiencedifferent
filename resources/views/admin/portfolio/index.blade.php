@@ -17,13 +17,8 @@
                     <a data-toggle="tooltip" data-placement="top" title="Settings">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </a>
-                    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Lock">
-                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-                    </a>
-                    <a data-toggle="tooltip" data-placement="top" title="Logout">
+
+                    <a href="{{url('auth/logout')}}" data-toggle="tooltip" data-placement="top" title="Logout">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
                     </a>
                 </div>
@@ -85,10 +80,10 @@
         <div class="x_content">
         <p class="text-muted font-13 m-b-30">
         </p>
-        <table id="datatable" class="table table-striped table-bordered">
+        <table id="myTable" class="table table-striped table-bordered">
         <thead>
         <tr>
-            <th>Name</th>
+            <th>No.</th>
             <th>Type</th>
             <th>Image</th>
             <th>Action</th>
@@ -100,9 +95,9 @@
        <tbody>
        @foreach($portfolio as $portfolio)
            <tr>
-           <td>{{$portfolio->name}}</td>
+           <td>{{$portfolio->id}}</td>
            <td>{{$portfolio->type}}</td>
-              <td><img width="200" height="100" src="{{ asset('/img/portfolio/'.$portfolio->file_path) }}" alt=""></td>
+              <td><img width="200" height="100" src="{{ asset('/assets/img/portfolio/'.$portfolio->file_path) }}" alt=""></td>
            <td><span><a href="{{url ('admin/portfolio/deletePortfolio',$portfolio->id)}}"><i class="fa fa-trash-o"> Delete</i></a></span>
            </td>
            </tr>
@@ -113,58 +108,55 @@
         </div>
         </div>
         </div>
-        <div class="col-md-6 col-sm-6 col-xs-6">
-        <div class="x_panel">
-        <div class="x_title">
-            <h2>Add new Portfolio <small></small></h2>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-        <p class="text-muted font-13 m-b-30">
-        </p>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Add new Portfolio <small></small></h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
 
-            {!! Form::open(['url' => '/admin/portfolio','files'=>'true']) !!}
-            {!! Form::label('name',null,'Name') !!}
-            {!! Form::text('name',null,['class'=>'form-control','id'=>'fullname']) !!}
-                <br/>
-            {!! Form::label('type',null,'Choose Type') !!}
-            {!! Form::select('type',[
-            '3D visualization' =>'3D visualization',
-            'Graphic Design' =>'Graphic Design',
-            'Animation' => 'Animation'],
+                        {!! Form::open(['url' => '/admin/portfolio','files'=>'true']) !!}
 
-           null, ['class'=>'form-control']) !!}
+                        <br/>
+                        {!! Form::label('type',null,'Choose Type') !!}
+                        {!! Form::select('type[]',[
+                        '3D visualization' =>'3D visualization',
+                        'Graphic Design' =>'Graphic Design',
+                        'Animation' => 'Animation'],
 
-                <br/>
+                       null, ['class'=>'form-control']) !!}
 
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <br/>
+
                         <div class="x_panel">
+                              <span class="btn btn-xs btn-info"><a href="javascript:void(0);"  class="add_portfolio"><i class="fa fa-plus"></i></a></span>
+
 
                             <div class="form-group">
                                 {!! Form::label('image', 'Choose an image') !!}
-                                {!! Form::file('image') !!}
+                                <article class="styled">
+                                    <input type="file" name="file_path[]" onchange="previewImage(this,[256],4);" />
+                                    <div class="imagePreview"></div>
+                                </article>
+                            </div>
+                            <div id="addportfolio">
                             </div>
                         </div>
+
+
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Add Portfolio</button>
+                        {!! Form::close() !!}
                     </div>
                 </div>
-                <br/>
 
-            <div class="input-group input-lg text-center">
-                {!! Form::button('<i class="fa fa-plus"></i> Create Portfolio',['type'=>'submit', 'class'=>'btn  btn-inverse ']) !!}
+
             </div>
 
-            {!! Form::close() !!}
-        </div>
-        </div>
-        </div>
-
-
-
 
         </div>
         </div>
-        </div>
+            </div>
         <!-- /page content -->
 
         <!-- footer content -->

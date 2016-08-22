@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
             </button>
                     <span class="logo" >
-                    <a class="navbar-brand" href="index.blade.php"><span class="logo-the">the</span><br><span  style="letter-spacing: 5px;" class="logo-main">experience  different</span><br>
+                    <a class="navbar-brand" href="/"><span class="logo-the">the</span><br><span  style="letter-spacing: 5px;" class="logo-main">experience  different</span><br>
                         <span  class="pull-right logo-project">project</span> </a>
                         </span>
         </div>

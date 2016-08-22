@@ -2,42 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\User;
+use Input;
+use Validator;
+use Response;
+use Illuminate\Support\Facades\Session;
 
-use App\Http\Requests\AddUserRequest;
-use Request;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Auth;
-
-
-class UsersController extends Controller
+class DropzoneController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    //to protect all routes within this controller
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     public function index()
     {
-        $name = Auth::user()->name;
-        $users = User::all();
-
-        foreach($users as $user):
-            $user->status = "Active";
-
-            endforeach;
-        return view('admin.users.index', compact('users','name'));
+        //
     }
 
     /**
@@ -56,9 +39,9 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddUserRequest $request)
+    public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -103,27 +86,33 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-
+        //
     }
 
-    public function addUser(AddUserRequest $request)
+    public function uploadFiles()
     {
-        $confirmation_code =  str_random(30);
         $input = Input::all();
-        $input['password'] = bcrypt($input['password']);
-        $input['confirmation_code'] = $confirmation_code;
 
-        $user = new User();
-        $user->save();
+        $rules = array(
+            'file' => 'image|max:3000',
+        );
 
-        return redirect()->back()->with('message','User Created');
-    }
+        $validation = Validator::make($input, $rules);
 
-    public function deleteUser($id){
-        if(!User::findorFail($id)->delete()){
-            return redirect('admin.users.index')->with('message','Unable to delete user');
+        if ($validation->fails()) {
+            return Response::make($validation->errors->first(), 400);
         }
-        return redirect()->back()->with('message','User Delete');
-    }
 
+        $destinationPath = 'uploads';// upload path
+
+        $extension = Input::file('file')->getClientOriginalExtension(); // getting file extension
+        $fileName = rand(11111, 99999) . '.' . $extension; // renameing image
+        $upload_success = Input::file('file')->move($destinationPath, $fileName); //
+
+        if ($upload_success) {
+            return Response::json('success', 200);
+        } else {
+            return Response::json('error', 400);
+        }
+    }
 }

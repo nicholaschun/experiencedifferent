@@ -39,8 +39,8 @@
 
                     <div  class="col-lg-4 col-md-4 col-sm-6 col-xs-12 showDiv mix  html {{$visual->type}}">
                         <div class="portfolio-item">
-                            <a data-lightbox="image1" href="{{ asset('/img/portfolio/'.$visual->file_path) }}" class="preview">
-                                <img src="{{ asset('/img/portfolio/'.$visual->file_path) }}" alt="">
+                            <a data-lightbox="image1" href="{{ asset('/assets/img/portfolio/'.$visual->file_path) }}" class="preview">
+                                <img src="{{ asset('/assets/img/portfolio/'.$visual->file_path) }}" alt="">
                             </a>
 
                         </div>

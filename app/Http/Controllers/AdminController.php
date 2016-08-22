@@ -2,19 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\User;
-
-use App\Http\Requests\AddUserRequest;
-use Request;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Input;
+use App\Portfolio;
 use Illuminate\Support\Facades\Auth;
 
-
-class UsersController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,16 +23,12 @@ class UsersController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index()
     {
         $name = Auth::user()->name;
-        $users = User::all();
-
-        foreach($users as $user):
-            $user->status = "Active";
-
-            endforeach;
-        return view('admin.users.index', compact('users','name'));
+        $portfolio = count(Portfolio::all());
+        return view ('admin.index',compact('portfolio','name'));
     }
 
     /**
@@ -56,9 +47,9 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AddUserRequest $request)
+    public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -103,27 +94,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-
+        //
     }
-
-    public function addUser(AddUserRequest $request)
-    {
-        $confirmation_code =  str_random(30);
-        $input = Input::all();
-        $input['password'] = bcrypt($input['password']);
-        $input['confirmation_code'] = $confirmation_code;
-
-        $user = new User();
-        $user->save();
-
-        return redirect()->back()->with('message','User Created');
-    }
-
-    public function deleteUser($id){
-        if(!User::findorFail($id)->delete()){
-            return redirect('admin.users.index')->with('message','Unable to delete user');
-        }
-        return redirect()->back()->with('message','User Delete');
-    }
-
 }
